@@ -1,0 +1,132 @@
+<% layout('layout/boilerplate') %>
+
+<style>
+  body {
+    background-image: url("https://images.pexels.com/photos/301375/pexels-photo-301375.jpeg?auto=compress&cs=tinysrgb&w=4000");
+    background-size: cover;
+  }
+  .back-to-home a{
+    text-decoration: none;
+    color: black;
+  }
+  .back-to-home{
+    background-color: rgb(0, 128, 17);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 150px;
+  }
+</style>
+
+<div class="row">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-6 offset-3">
+    <div class="card shadow">
+      <div class="card-body">
+        <form
+          action="/campgrounds/<%=campground._id%>?_method=PUT"
+          method="POST"
+          class="validated-form"
+          novalidate
+          enctype="multipart/form-data"
+        >
+          <div class="mb-3">
+            <label class="form-label" for="title">Title:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="campground[title]"
+              value="<%=campground.title%>"
+              required
+            />
+            <div class="valid-feedback">Looks good!!</div>
+          </div>
+          <br />
+
+          <div class="mb-3">
+            <label class="form-label" for="location">Location:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="location"
+              name="campground[location]"
+              value="<%=campground.location%>"
+              required
+            />
+            <div class="valid-feedback">Looks good!!</div>
+          </div>
+          <br />
+
+          <div class="mb-3">
+            <label for="price" class="form-label">Campground Price</label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                placeholder="0.00"
+                aria-label="Price"
+                aria-describedby="price-label"
+                name="campground[price]"
+                value="<%=campground.price%>"
+                required
+              />
+              <div class="valid-feedback">Looks good!!</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              class="form-control"
+              type="text"
+              id="description"
+              name="campground[description]"
+              required
+            >
+<%= campground.description %> </textarea
+            >
+            <div class="valid-feedback">Looks good!!</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="formFileMultiple" class="form-label"
+              >Campground Images</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="formFileMultiple"
+              name="image"
+              multiple
+            />
+          </div>
+
+          <div class="mb-3">
+            <% campground.images.forEach((img,i)=>{ %>
+            <img src="<%=img.thumbnail%>" alt="" class="img-thumbnail" />
+            <div class="form-check-inline">
+              <input
+                type="checkbox"
+                id="image-<%=i%>"
+                name="deleteImages[]"
+                value="<%=img.filename%>"
+              />
+            </div>
+            <label for="image-<%=i%>">Delete?</label>
+            <% }) %>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-info">Save Campground</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br />
+    <button class="back-to-home">
+      <a href="/campgrounds">Back to Home</a>
+    </button>
+  </div>
+</div>

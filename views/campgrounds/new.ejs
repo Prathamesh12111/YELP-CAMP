@@ -1,0 +1,126 @@
+<% layout('layout/boilerplate') %>
+
+<style>
+    body{
+        background-image: url("https://images.pexels.com/photos/301375/pexels-photo-301375.jpeg?auto=compress&cs=tinysrgb&w=4000");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-6 offset-3">
+    <div class="card shadow">
+      <div class="card-body">
+        <form
+          action="/campgrounds"
+          method="POST"
+          class="validated-form"
+          novalidate
+          enctype="multipart/form-data"
+        >
+          <div class="mb-3">
+            <label class="form-label" for="title">Title:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="campground[title]"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <br />
+
+          <div class="mb-3">
+            <label class="form-label" for="location">Location:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="location"
+              name="campground[location]"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <br />
+
+          <div class="mb-3">
+            <label for="formFileMultiple" class="form-label"
+              >Campground Images</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="formFileMultiple"
+              name="image"
+              multiple
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="price" class="form-label">Campground Price</label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="0"
+                aria-label="Price"
+                aria-describedby="price-label"
+                name="campground[price]"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              class="form-control"
+              type="text"
+              id="description"
+              name="campground[description]"
+              required
+            ></textarea>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-success">Add Campground</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br />
+    <button class="btn btn-info mb-3">
+      <a style="text-decoration: none" href="/campgrounds">Back to Home</a>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".validated-form");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

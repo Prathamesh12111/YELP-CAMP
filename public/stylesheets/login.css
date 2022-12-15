@@ -1,0 +1,14 @@
+body{
+    background-image: url("https://images.pexels.com/photos/13248541/pexels-photo-13248541.jpeg?auto=compress&cs=tinysrgb&w=2200");
+    background-size: cover;
+    background-position: center;
+}
+.card-body{
+    background-color: rgb(12, 12, 12);
+}
+.card-title{
+    color: white;
+}
+.form-label{
+    color: white;
+}
