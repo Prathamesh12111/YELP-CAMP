@@ -12,36 +12,41 @@ ImageSchema.virtual("thumbnail").get(function () {
 
 const opts = {toJSON:{virtuals:true}};
 
-const CampgroundSchema = new Schema({
-  title: String,
-  images: [ImageSchema],
-  geometry: {
-    //mapbox
-    type: {
-      type: String,
-      enum: ["Point"], //from docs i.e. geometry.type should be a point
-      required: true,
+const CampgroundSchema = new Schema(
+  {
+    title: String,
+    images: [ImageSchema],
+    geometry: {
+      //mapbox
+      type: {
+        type: String,
+        enum: ["Point"], //from docs i.e. geometry.type should be a point
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
-    coordinates: {
-      type: [Number],
-      required: true,
+    price: Number,
+    description: String,
+    location: String,
+    author: {
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      }
     },
+    reviews: [
+      //Here we are linking campground and review model and later we will push reviews into campgrounds
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
-  price: Number,
-  description: String,
-  location: String,
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  reviews: [
-    //Here we are linking campground and review model and later we will push reviews into campgrounds
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Review",
-    },
-  ],
-},opts);
+  opts
+);
 
 CampgroundSchema.virtual("properties.popUpMarkup").get(function () {
   return `<strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
